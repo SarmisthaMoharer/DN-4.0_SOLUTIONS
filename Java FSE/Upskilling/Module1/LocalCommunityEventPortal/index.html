@@ -13,9 +13,11 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
       <a class="navbar-brand" href="#home">Local Community Event Portal</a>
+      <!-- Toggle in mobile view-->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <!-- Nav items -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -31,6 +33,9 @@
             <a class="nav-link" href="help.html" target="_blank">Help</a>
           </li>
         </ul>
+         <!--<div id="profileDropdownContainer" class="d-none d-lg-block">
+       Profile Icon
+      </div>-->
       </div>
     </div>
   </nav>
@@ -38,6 +43,7 @@
   <!-- Home Section -->
   <section id="home" class="py-5">
     <div class="container">
+      <!-- Welcome Banner -->
       <div id="welcomeBanner" class="p-4 mb-4 rounded" style="background-color: #12457b; color: white;">
         <h1>Welcome to Our Community Portal!</h1>
         <span style="color: red; font-weight: bold;">Special offer: First event registration is free!</span>
@@ -47,13 +53,14 @@
         <div class="col-md-6">
           <h2>Upcoming Highlights</h2>
           <div id="featuredEvents" class="list-group">
-            <!-- JavaScript will populate this -->
+           
           </div>
         </div>
+        <!-- Promo Video -->
         <div class="col-md-6">
           <div class="ratio ratio-16x9">
             <video id="promoVideo" controls oncanplay="videoReady()">
-              <source src="assets/videos/promo.mp4" type="video/mp4">
+              <source src="assets/promo.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -63,7 +70,7 @@
     </div>
   </section>
 
-  <!-- Events Section -->
+  <!-- Events Section 
   <section id="events" class="py-5 bg-light">
     <div class="container">
       <h2 class="text-center mb-4">Upcoming Events</h2>
@@ -83,16 +90,16 @@
       </div>
       
       <div id="eventsContainer" class="row">
-        <!-- JavaScript will populate this -->
+       
       </div>
     </div>
-  </section>
+  </section>-->
 
   <!-- Image Gallery Section -->
   <section id="about" class="py-5">
     <div class="container">
       <h3 class="mt-4">Past Events Gallery</h3>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped">
         <tr>
           <td><img src="assets/event.jpeg" alt="Summer Festival" class="img-fluid event-image"></td>
           <td><img src="assets/event.jpeg" alt="Yoga Class" class="img-fluid event-image"></td>
@@ -114,32 +121,44 @@
     <form id="eventRegistrationForm" onsubmit="handleEventRegistration(event)" class="bg-white p-4 rounded shadow">
       <div class="mb-3">
         <label for="regName" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="regName" placeholder="Enter your full name" required autofocus>
+        <input type="text" class="form-control form-border-dashed" id="regName" placeholder="Enter your full name" required autofocus>
       </div>
       <div class="mb-3">
         <label for="regEmail" class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="regEmail" placeholder="example@domain.com" required>
+        <input type="email" class="form-control form-border-dashed" id="regEmail" placeholder="example@domain.com" required>
+      </div>
+      <div class="mb-3">
+        <label for="regPhone" class="form-label">Phone Number</label>
+        <input type="text" class="form-control form-border-dashed" id="regPhone" placeholder="10-digit phone number" onblur="validatePhone()" required>
       </div>
       <div class="mb-3">
         <label for="regDate" class="form-label">Select Date</label>
-        <input type="date" class="form-control" id="regDate" required>
+        <input type="date" class="form-control form-border-dashed" id="regDate" required>
       </div>
       <div class="mb-3">
         <label for="regType" class="form-label">Event Type</label>
-        <select id="regType" class="form-select" required>
+        <select id="regType" class="form-select form-border-dashed" required>
           <option value="">Select an event</option>
           <option value="summerfestival">Summer Festival</option>
           <option value="communityyoga">Community Yoga</option>
           <option value="workshop">Workshop</option>
         </select>
       </div>
+       <p class="mt-2">Selected Event Fee: <span id="eventFee">100 Rs</span></p>
       <div class="mb-3">
         <label for="regMessage" class="form-label">Your Message</label>
-        <textarea class="form-control" id="regMessage" rows="3" placeholder="Write your message here..." required></textarea>
+        <textarea class="form-control form-border-dashed" id="regMessage" rows="3" placeholder="Write your message here..." required></textarea>
+        <small id="charCount" class="text-muted">Characters: 0</small>
       </div>
-      <button type="submit" class="btn btn-success">Submit Registration</button>
-      <output id="regOutput" class="d-block mt-3 text-success"></output>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success">Submit Registration</button>
+        <output id="regOutput" class="d-block mt-3 text-success"></output>
+      </div>
     </form>
+     <!-- Clear Preferences  -->
+    <div class="text-center mt-3">
+      <button class="btn btn-outline-danger" onclick="clearPreferences()">Clear Preferences</button>
+    </div>
   </div>
 </section>
 
@@ -175,53 +194,12 @@
 </section>
 
 
-  <!-- Registration Form -->
-  <div class="modal fade" id="registrationModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Event Registration</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form id="registrationForm">
-            <div class="mb-3">
-              <label for="regName" class="form-label">Full Name</label>
-              <input type="text" class="form-control" id="regName" required>
-            </div>
-            <div class="mb-3">
-              <label for="regEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="regEmail" required>
-            </div>
-            <div class="mb-3">
-              <label for="regPhone" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="regPhone" placeholder="10-digit phone number" onblur="validatePhone()" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="regEvent" class="form-label">Event</label>
-              <input type="text" class="form-control" id="regEvent" readonly>
-            </div>
-            <div class="mb-3">
-              <label for="regSeats" class="form-label">Number of Seats</label>
-              <input type="number" class="form-control" id="regSeats" min="1" value="1">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="registerForEvent()">Register</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer class="bg-dark text-white py-4">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h5>Community Event Portal</h5>
+          <h5 class="text-white">Local Community Event Portal</h5>
          
         </div>
         <div class="col-md-6 text-end">
@@ -232,7 +210,7 @@
         </div>
       </div>
       <div class="text-center mt-3">
-        <p class="mb-0">&copy; 2023 Community Portal. All rights reserved.</p>
+        <p class="mb-0">&copy; 2025 Community Portal. All rights reserved.</p>
       </div>
     </div>
   </footer>

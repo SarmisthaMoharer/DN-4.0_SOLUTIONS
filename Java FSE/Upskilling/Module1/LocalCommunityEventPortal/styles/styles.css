@@ -4,7 +4,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+/* Global Styles */
 :root {
   --primary-color: #007bff;
   --secondary-color: #6c757d;
@@ -84,6 +84,7 @@ section {
   border-radius: 0.25rem;
 }
 
+
 /* Event Cards  */
 .event-card {
   background: white;
@@ -129,7 +130,7 @@ section {
   padding: 0.35em 0.65em;
 }
 
-/*  Forms  */
+/* Registration Form  */
 .form-control {
   margin-bottom: 1rem;
 }
@@ -156,6 +157,12 @@ section {
   border-color: #0062cc;
 }
 
+.form-border-dashed {
+  border: 1px dashed #293037;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
 /*  Table Styles  */
 .table {
   width: 100%;
@@ -176,6 +183,7 @@ section {
   font-weight: 600;
 }
 
+/*  Event Images Styles  */
 .event-image {
   border: 1px solid #ddd;
   border-radius: 0.25rem;
@@ -282,6 +290,21 @@ footer a:hover {
   border-right-color: transparent;
   border-radius: 50%;
   animation: spinner-border 0.75s linear infinite;
+}
+
+/* Upcomming Events Section */
+#featuredEvents .list-group-item {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#featuredEvents .list-group-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 @keyframes spinner-border {
